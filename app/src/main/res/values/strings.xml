@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Challenge.me</string>
+    <string name="today_challenge">Today\'s challenge:</string>
+    <string name="challenge"></string>
+    <string name="completed">Completed?</string>
+
+    <string name="descr_overflow_button"></string>
+
+    <string name="account_string">My Account</string>
+    <string name="weekly_challenge">Weekly Challenge</string>
+    <string name="about_string">About Challenge.me</string>
+    <string name="settings_string">Settings</string>
+</resources>

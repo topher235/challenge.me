@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
+    tools:context="topher.challengeme.MainActivity"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="81dp">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="@string/today_challenge"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteX="-236dp"
+        tools:layout_editor_absoluteY="663dp"
+        android:layout_marginTop="68dp"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="@string/completed"
+        android:textColor="@color/colorAccent"
+        android:textIsSelectable="false"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="462dp"
+        android:layout_marginRight="75dp"
+        android:layout_above="@+id/imageButton3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/challenge"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="156dp"
+        tools:layout_editor_absoluteY="287dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="71dp"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="27dp"
+        android:contentDescription="Check completed challenge"
+        android:src="@drawable/star_off"
+        tools:layout_editor_absoluteX="170dp"
+        tools:layout_editor_absoluteY="532dp" />
+
+
+</RelativeLayout>

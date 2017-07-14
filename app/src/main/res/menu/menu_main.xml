@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/menu_account"
+            android:title="@string/account_string" />
+        <item
+            android:id="@+id/menu_weekly_challenge"
+            android:title="@string/weekly_challenge" />
+        <item
+            android:id="@+id/menu_settings"
+            android:title="@string/settings_string" />
+        <item
+            android:id="@+id/menu_about"
+            android:title="@string/about_string" />
+
+    </group>
+</menu>
