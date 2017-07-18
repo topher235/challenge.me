@@ -10,4 +10,10 @@
     <string name="weekly_challenge">Weekly Challenge</string>
     <string name="about_string">About Challenge.me</string>
     <string name="settings_string">Settings</string>
+    <string name="string_email">Email</string>
+    <string name="string_password">Password</string>
+    <string name="string_login">LOGIN</string>
+    <string name="string_not_member">Not a member? <u>Sign up now.</u></string>
+    <string name="string_already_registered">Already registered? <u>Login now.</u></string>
+    <string name="string_register" >REGISTER</string>
 </resources>

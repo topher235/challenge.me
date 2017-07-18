@@ -4,12 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?android:attr/colorAccent"
     tools:context="topher.challengeme.WeekChallengeActivity">
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/weeklyChallengeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
         android:fontFamily="cursive"
         android:text="@string/weekly_challenge"
         android:textSize="36sp"
@@ -17,9 +21,12 @@
         tools:layout_editor_absoluteY="44dp" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/weeklyChallengeStarButton"
         android:layout_width="67dp"
         android:layout_height="72dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="44dp"
         app:srcCompat="@drawable/star_off"
         tools:layout_editor_absoluteX="172dp"
         tools:layout_editor_absoluteY="497dp" />

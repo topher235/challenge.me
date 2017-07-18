@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorAccent">
+
+    <EditText
+        android:id="@+id/loginEmailInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/loginPasswordInput"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="45dp"
+        android:background="@android:color/background_light"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:text="@string/string_email"
+        android:textColor="@android:color/darker_gray" />
+
+    <EditText
+        android:id="@+id/loginPasswordInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/background_light"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:text="@string/string_password"
+        android:textColor="@android:color/darker_gray"
+        android:layout_above="@+id/loginButton"
+        android:layout_alignStart="@+id/loginEmailInput"
+        android:layout_marginBottom="50dp" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/loginPasswordInput"
+        android:layout_alignStart="@+id/loginPasswordInput"
+        android:layout_centerVertical="true"
+        android:onClick="loginUser"
+        android:text="@string/string_login"
+        android:textColor="?android:attr/colorAccent"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/loginTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:onClick="goToRegister"
+        android:text="@string/string_not_member"
+        android:textColor="@android:color/background_light"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/loginButton"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
