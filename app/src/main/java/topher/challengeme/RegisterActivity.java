@@ -103,13 +103,12 @@ public class RegisterActivity extends Activity {
         if(successful) {
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
             mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(new User(mAuth.getCurrentUser().getEmail()));
-
         }
     }
 
     private void changeScreen(boolean successful) {
         if(successful) {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, AccountActivity.class));
         }
     }
 }

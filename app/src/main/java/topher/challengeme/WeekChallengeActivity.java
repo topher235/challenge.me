@@ -70,9 +70,9 @@ public class WeekChallengeActivity extends Activity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get points and use the values to update the user
-                        int points = dataSnapshot.getValue(Integer.class);
-                        Log.d(TAG, "Value is: " + points);
-                        updateUserPoints(points);
+                        Integer i = dataSnapshot.getValue(Integer.class);
+                        Log.d(TAG, "Value is: " + i);
+                        updateUserPoints(i);
                         // ...
                     }
 
@@ -90,5 +90,35 @@ public class WeekChallengeActivity extends Activity {
         points += 5;
         mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("points").setValue(points);
         Log.d(TAG, "Value is: " + points);
+        String tier = updateUserTier(points);
+        mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("tier").setValue(tier);
+    }
+
+    private String updateUserTier(int points) {
+        if (points >= 19 && points <= 38) {
+            return "Novice";
+        } else if(points >= 39 && points <= 76) {
+            return "Bold";
+        } else if(points >= 77 && points <= 133) {
+            return "Opportunistic";
+        } else if(points >= 134 && points <= 209) {
+            return "Ambitious";
+        } else if(points >= 210 && points <= 304) {
+            return "Go-getter";
+        } else if(points >= 305 && points <= 418) {
+            return "Achiever";
+        } else if(points >= 419 && points <= 551) {
+            return "Adventurer";
+        } else if(points >= 552 && points <= 703) {
+            return "High-flyer";
+        } else if(points >= 704 && points <= 874) {
+            return "Over-Achiever";
+        } else if(points >= 875 && points <= 1064) {
+            return "Master";
+        } else if(points >= 1065) {
+            return "Champion";
+        } else {
+            return "Beginner";
+        }
     }
 }

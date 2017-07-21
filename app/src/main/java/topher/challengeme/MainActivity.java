@@ -3,34 +3,33 @@ package topher.challengeme;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.text.TextUtils;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Map;
 
 import helper.User;
 
 /**
  * Created by Christopher Hurt on 7/11/17.
- * This is the main activity of Challenge.me
+ * This is the main activity of Challenge.me.
+ * Opens the login activity, if a user is not
+ * detected.
  * This activity displays the daily challenge
  * and a menu.
+ * When the star image is clicked, the database
+ * will be updated with the new user information.
  */
 public class MainActivity extends Activity {
 
@@ -47,10 +46,11 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                user = firebaseAuth.getCurrentUser();
+                //user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
@@ -66,6 +66,7 @@ public class MainActivity extends Activity {
         imgBtn = (ImageButton) findViewById(R.id.dailyChallengeStarButton);
         imgBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                updateUserPoints();
                 if(imgBtn.getDrawable().equals(R.drawable.star_off)) {
                     imgBtn.setImageResource(R.drawable.star_on);
                     updateUserPoints();
@@ -125,16 +126,15 @@ public class MainActivity extends Activity {
 
     private void updateUserPoints() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Users").addValueEventListener(//child(mAuth.getCurrentUser().getUid()).child("points").addListenerForSingleValueEvent(
+        mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("points").addListenerForSingleValueEvent(
                 new ValueEventListener() {
 
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get points and use the values to update the user
-                        User user = dataSnapshot.getValue(User.class);
-                        Log.d(TAG, "Value is: " + user.toString());
-                        user.updateUserPoints();
-                        updateUserInDatabase(user.points, user.day, user.tier);
+                        Integer i = dataSnapshot.getValue(Integer.class);
+                        Log.d(TAG, "Value is: " + i);
+                        updateUserPoints(i);
                         // ...
                     }
 
@@ -158,5 +158,35 @@ public class MainActivity extends Activity {
         points += 2;
         mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("points").setValue(points);
         Log.d(TAG, "Value is: " + points);
+        String tier = updateUserTier(points);
+        mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("tier").setValue(tier);
+    }
+
+    private String updateUserTier(int points) {
+        if (points >= 19 && points <= 38) {
+            return "Novice";
+        } else if(points >= 39 && points <= 76) {
+            return "Bold";
+        } else if(points >= 77 && points <= 133) {
+            return "Opportunistic";
+        } else if(points >= 134 && points <= 209) {
+            return "Ambitious";
+        } else if(points >= 210 && points <= 304) {
+            return "Go-getter";
+        } else if(points >= 305 && points <= 418) {
+            return "Achiever";
+        } else if(points >= 419 && points <= 551) {
+            return "Adventurer";
+        } else if(points >= 552 && points <= 703) {
+            return "High-flyer";
+        } else if(points >= 704 && points <= 874) {
+            return "Over-Achiever";
+        } else if(points >= 875 && points <= 1064) {
+            return "Master";
+        } else if(points >= 1065) {
+            return "Champion";
+        } else {
+            return "Beginner";
+        }
     }
 }
