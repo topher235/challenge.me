@@ -28,7 +28,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="44dp"
         android:contentDescription="Used to see if user has completed the challenge"
-        app:srcCompat="@drawable/star_off"
+        android:src="@drawable/star_off"
         tools:layout_editor_absoluteX="172dp"
         tools:layout_editor_absoluteY="497dp"
         tools:ignore="HardcodedText" />
