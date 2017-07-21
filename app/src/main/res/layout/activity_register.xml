@@ -5,44 +5,30 @@
     android:background="@android:color/holo_red_light">
 
     <EditText
-        android:id="@+id/registerNameInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="123dp"
-        android:background="@android:color/background_light"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="18sp" />
-
-    <EditText
         android:id="@+id/registerEmailInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/background_light"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:layout_marginBottom="15dp"
         android:text="@string/string_email"
         android:textColor="@android:color/darker_gray"
-        android:layout_below="@+id/registerNameInput"
-        android:layout_alignStart="@+id/registerNameInput" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="166dp" />
 
     <EditText
         android:id="@+id/registerPasswordInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/registerEmailInput"
-        android:layout_below="@+id/registerEmailInput"
         android:background="@android:color/background_light"
         android:ems="10"
         android:inputType="textPassword"
         android:text="@string/string_password"
-        android:textColor="@android:color/darker_gray" />
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/registerEmailInput"
+        android:layout_alignStart="@+id/registerEmailInput" />
 
     <Button
         android:id="@+id/registerButton"

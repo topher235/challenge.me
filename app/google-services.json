@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "284647047629",
+    "firebase_url": "https://challengeme-12dfc.firebaseio.com",
+    "project_id": "challengeme-12dfc",
+    "storage_bucket": "challengeme-12dfc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284647047629:android:bd287fec92587155",
+        "android_client_info": {
+          "package_name": "topher.challengeme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284647047629-0ig9gcc0g7d3sip2qlpl8g6kvre0rn61.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "topher.challengeme",
+            "certificate_hash": "8632d59a80fccce20c33dc6564a8abf3e8ce9954"
+          }
+        },
+        {
+          "client_id": "284647047629-1kq3n7t0l4t9egtq2lr2ckegtbc5ei8o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-u3YkcDYXcfvXjeAR2LTLV525wHYWeZA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "284647047629-1kq3n7t0l4t9egtq2lr2ckegtbc5ei8o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
