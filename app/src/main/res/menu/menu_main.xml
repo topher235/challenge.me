@@ -13,6 +13,8 @@
         <item
             android:id="@+id/menu_about"
             android:title="@string/about_string" />
-
+        <item
+            android:id="@+id/menu_sign_out"
+            android:title="Sign out" />
     </group>
 </menu>
