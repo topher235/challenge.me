@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.app.ProgressDialog;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 /**
  * Created by Christopher Hurt on 7/18/2017.
  * This activity will allow users to login.
+ * Takes them to the MainActivity once logged in.
  */
 
 public class LoginActivity extends Activity {
@@ -38,35 +38,6 @@ public class LoginActivity extends Activity {
         inputPassword = (EditText) findViewById(R.id.loginPasswordInput);
 
         mAuth = FirebaseAuth.getInstance();
-
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-                // ...
-            }
-        };
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
     }
 
     public void goToRegister(View view) {

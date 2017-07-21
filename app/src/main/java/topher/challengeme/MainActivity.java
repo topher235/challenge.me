@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Map;
+
 import helper.User;
 
 /**
@@ -36,7 +38,8 @@ public class MainActivity extends Activity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
-    ImageButton imgBtn;
+    private FirebaseUser user;
+    private ImageButton imgBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,20 +47,17 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
-        //FirebaseUser user = mAuth.getCurrentUser();
-        //if(user == null) {
-        //    startActivity(new Intent(this, LoginActivity.class));
-        //}
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
+                    login();//startActivity(new Intent(MainActivity.class, LoginActivity.class));
                 }
                 // ...
             }
@@ -72,6 +72,10 @@ public class MainActivity extends Activity {
                 }
             }
         });
+    }
+
+    private void login() {
+        startActivity(new Intent(this, LoginActivity.class));
     }
 
     @Override
@@ -100,10 +104,9 @@ public class MainActivity extends Activity {
         switch (item.getItemId()) {
             case R.id.menu_account:
                 //change activity to account
-                startActivity(new Intent(this, LoginActivity.class));
+                startActivity(new Intent(this, AccountActivity.class));
                 return true;
             case R.id.menu_weekly_challenge:
-                //Intent intent = new Intent(this, WeekChallengeActivity.class);
                 startActivity(new Intent(this, WeekChallengeActivity.class));
                 return true;
             case R.id.menu_settings:
@@ -112,6 +115,9 @@ public class MainActivity extends Activity {
             case R.id.menu_about:
                 //Change activity to about
                 return true;
+            case R.id.menu_sign_out:
+                mAuth.signOut();
+                return true;
             default:
                 return false;
         }
@@ -119,15 +125,16 @@ public class MainActivity extends Activity {
 
     private void updateUserPoints() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("points").addListenerForSingleValueEvent(
+        mDatabase.child("Users").addValueEventListener(//child(mAuth.getCurrentUser().getUid()).child("points").addListenerForSingleValueEvent(
                 new ValueEventListener() {
 
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get points and use the values to update the user
-                        int points = dataSnapshot.getValue(Integer.class);
-                        Log.d(TAG, "Value is: " + points);
-                        updateUserPoints(points);
+                        User user = dataSnapshot.getValue(User.class);
+                        Log.d(TAG, "Value is: " + user.toString());
+                        user.updateUserPoints();
+                        updateUserInDatabase(user.points, user.day, user.tier);
                         // ...
                     }
 
@@ -138,11 +145,17 @@ public class MainActivity extends Activity {
                         // ...
                     }
                 });
+
     }
 
+    private void updateUserInDatabase(int points, int day, String tier) {
+        mDatabase.child("Users").child(user.getUid()).child("points").setValue(points);
+        mDatabase.child("Users").child(user.getUid()).child("day").setValue(day);
+        mDatabase.child("Users").child(user.getUid()).child("tier").setValue(tier);
+    }
 
     private void updateUserPoints(int points) {
-        points += 1;
+        points += 2;
         mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("points").setValue(points);
         Log.d(TAG, "Value is: " + points);
     }
