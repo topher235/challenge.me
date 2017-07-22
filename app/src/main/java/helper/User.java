@@ -1,9 +1,5 @@
 package helper;
 
-import com.google.firebase.database.Exclude;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Christopher Hurt on 7/20/2017.
@@ -15,6 +11,8 @@ import java.util.Map;
 public class User {
     public String email; //email of the current user
     public String tier; //name of the tier
+    public String daily_challenge; //"complete" if user has completed
+    public String weekly_challenge; //"complete" if user has completed
     public int points;  //total number of points accrued by user
     public int day;     //the number used for determining the daily challenge
 
@@ -25,6 +23,8 @@ public class User {
     public User(String email) {
         this.email = email;
         this.tier = "Beginner";
+        this.daily_challenge = "incomplete";
+        this.weekly_challenge = "incomplete";
         this.points = 0;
         this.day = 1;
     }

@@ -37,6 +37,7 @@ public class WeekChallengeActivity extends Activity {
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    setStar();
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -45,21 +46,34 @@ public class WeekChallengeActivity extends Activity {
             }
         };
 
-        //Set image button click event
+        //Set star image button
         imgBtn = (ImageButton) findViewById(R.id.weeklyChallengeStarButton);
+        setStar(); //Read if completed from db
+
+        //Set star image button onClick event
         imgBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(imgBtn.getDrawable().equals(R.drawable.star_off)) {
+                if(imgBtn.getTag().equals(R.drawable.star_off)) {           //can't call get image resource so getTag is called
                     imgBtn.setImageResource(R.drawable.star_on);
+                    imgBtn.setTag(R.drawable.star_on);
                     updateUserPoints();
                 }
             }
         });
     }
 
-    private boolean starIsOff() {
-       // imgBtn.getResources
-        return true;
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 
     private void updateUserPoints() {
@@ -92,6 +106,7 @@ public class WeekChallengeActivity extends Activity {
         Log.d(TAG, "Value is: " + points);
         String tier = updateUserTier(points);
         mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("tier").setValue(tier);
+        mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("weekly_challenge").setValue("complete");
     }
 
     private String updateUserTier(int points) {
@@ -120,5 +135,42 @@ public class WeekChallengeActivity extends Activity {
         } else {
             return "Beginner";
         }
+    }
+
+    private void setStar() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("weekly_challenge").addListenerForSingleValueEvent(
+                new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get points and use the values to update the user
+                        String s = dataSnapshot.getValue(String.class);
+                        Log.d(TAG, "Value is: " + s);
+                        if(s.equals("complete")) {
+                            setStarToOn();
+                        } else {
+                            setStarToOff();
+                        }
+                        // ...
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Getting points failed, log a message
+                        Log.w(TAG, "updateUserPoints:onCancelled", databaseError.toException());
+                        // ...
+                    }
+                });
+    }
+
+    public void setStarToOn() {
+        imgBtn.setImageResource(R.drawable.star_on);
+        imgBtn.setTag(R.drawable.star_on);
+    }
+
+    public void setStarToOff() {
+        imgBtn.setImageResource(R.drawable.star_off);
+        imgBtn.setTag(R.drawable.star_off);
     }
 }

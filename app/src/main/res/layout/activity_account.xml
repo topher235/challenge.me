@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorEdgeEffect">
+
+    <ImageButton
+        android:id="@+id/account_profile_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/img_round_corners"
+        android:maxHeight="200dp"
+        android:maxWidth="200dp"
+        android:minHeight="150dp"
+        android:minWidth="150dp"
+        android:onClick="getProfileImage"
+        app:srcCompat="@android:drawable/ic_menu_report_image" />
+
+    <TextView
+        android:id="@+id/account_tier_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/account_profile_picture"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="Ambitious"
+        android:textColor="@android:color/holo_blue_light"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/account_points_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/account_tier_label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:text="Exp: 198"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="18sp"
+        android:textStyle="italic" />
+
+    <Button
+        android:id="@+id/account_sign_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="58dp"
+        android:background="@drawable/button_round_corners"
+        android:maxWidth="250dp"
+        android:minWidth="200dp"
+        android:onClick="logout"
+        android:outlineProvider="bounds"
+        android:text="@string/string_sign_out"
+        android:textColor="@color/common_google_signin_btn_text_light_default"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+</RelativeLayout>

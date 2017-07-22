@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:attr/colorAccent"
+    android:background="?android:attr/colorEdgeEffect"
     tools:context="topher.challengeme.WeekChallengeActivity">
 
     <TextView
@@ -14,11 +14,26 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
-        android:fontFamily="cursive"
         android:text="@string/weekly_challenge"
+        android:textColor="@android:color/holo_blue_dark"
         android:textSize="36sp"
         tools:layout_editor_absoluteX="91dp"
         tools:layout_editor_absoluteY="44dp" />
+
+    <TextView
+        android:id="@+id/dailyChallengeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="38dp"
+        android:layout_marginRight="75dp"
+        android:text="@string/completed"
+        android:textColor="@android:color/holo_blue_light"
+        android:textIsSelectable="false"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="462dp"
+        android:layout_above="@+id/weeklyChallengeStarButton"
+        android:layout_centerHorizontal="true" />
 
     <ImageButton
         android:id="@+id/weeklyChallengeStarButton"
@@ -27,9 +42,10 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="44dp"
+        android:background="@drawable/star_round_corners"
         android:contentDescription="Used to see if user has completed the challenge"
         android:src="@drawable/star_off"
+        tools:ignore="HardcodedText"
         tools:layout_editor_absoluteX="172dp"
-        tools:layout_editor_absoluteY="497dp"
-        tools:ignore="HardcodedText" />
+        tools:layout_editor_absoluteY="497dp" />
 </RelativeLayout>
