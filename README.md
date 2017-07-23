@@ -7,3 +7,4 @@ Through this project I will learn basic UI design in android, basic android deve
 Ideas for further down the line:
   1. Have users be able to connect with each other, e.g. facebook friends, to compare scores and levels
   2. Share what challenges users have completed on social media
+  3. Micro-transactions
