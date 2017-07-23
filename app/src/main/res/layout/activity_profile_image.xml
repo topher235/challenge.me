@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorEdgeEffect">
+
+
+    <ImageButton
+        android:id="@+id/profile_afro_girl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="125dp"
+        android:minWidth="125dp"
+        android:maxWidth="125dp"
+        android:src="@drawable/afro_girl"
+        android:layout_alignTop="@+id/profile_beard_guy"
+        android:layout_toStartOf="@+id/profile_business_guy"
+        android:onClick="getImage" />
+
+    <ImageButton
+        android:id="@+id/profile_business_guy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="9dp"
+        android:minHeight="125dp"
+        android:minWidth="125dp"
+        android:src="@drawable/business_guy"
+        android:layout_above="@+id/profile_headphones_girl"
+        android:layout_alignParentEnd="true"
+        android:onClick="getImage" />
+
+    <ImageButton
+        android:id="@+id/profile_beard_guy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="125dp"
+        android:minWidth="125dp"
+        android:src="@drawable/beard_guy"
+        android:layout_above="@+id/profile_brunette_girl"
+        android:layout_toStartOf="@+id/profile_afro_girl"
+        android:onClick="getImage" />
+
+    <ImageButton
+        android:id="@+id/profile_glasses_guy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="125dp"
+        android:minWidth="125dp"
+        android:src="@drawable/glasses_guy"
+        android:layout_alignTop="@+id/profile_brunette_girl"
+        android:layout_toEndOf="@+id/profile_brunette_girl"
+        android:onClick="getImage" />
+
+    <ImageButton
+        android:id="@+id/profile_headphones_girl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="125dp"
+        android:minWidth="125dp"
+        android:src="@drawable/headphones_girl"
+        android:layout_alignTop="@+id/profile_glasses_guy"
+        android:layout_toEndOf="@+id/profile_glasses_guy"
+        android:onClick="getImage" />
+
+    <ImageButton
+        android:id="@+id/profile_brunette_girl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="125dp"
+        android:minWidth="125dp"
+        android:src="@drawable/brunette_girl"
+        android:layout_above="@+id/profile_ponytail_girl"
+        android:layout_toStartOf="@+id/profile_afro_girl"
+        android:onClick="getImage" />
+
+    <ImageButton
+        android:id="@+id/profile_ponytail_girl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="125dp"
+        android:minWidth="125dp"
+        android:src="@drawable/ponytail_girl"
+        android:layout_alignTop="@+id/profile_moustache_guy"
+        android:layout_toEndOf="@+id/profile_moustache_guy"
+        android:onClick="getImage" />
+
+    <ImageButton
+        android:id="@+id/profile_moustache_guy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="125dp"
+        android:minWidth="125dp"
+        android:src="@drawable/moustache_guy"
+        android:layout_marginBottom="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/profile_brunette_girl"
+        android:onClick="getImage" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:text="Choose a profile avatar"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+</RelativeLayout>

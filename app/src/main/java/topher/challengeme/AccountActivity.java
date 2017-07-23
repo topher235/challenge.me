@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Menu;
@@ -17,8 +18,11 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by Christopher Hurt on 7/12/2017.
@@ -45,8 +49,6 @@ public class AccountActivity extends Activity {
         imgBtn = (ImageButton) findViewById(R.id.account_profile_picture);
         tierLabel = (TextView) findViewById(R.id.account_tier_label);
         pointsLabel = (TextView) findViewById(R.id.account_points_label);
-        setTierLabelText();
-        setPointsLabelText();
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -64,6 +66,10 @@ public class AccountActivity extends Activity {
                 // ...
             }
         };
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        setTierLabelText();
+        setPointsLabelText();
+        setImage();
     }
 
     @Override
@@ -80,6 +86,8 @@ public class AccountActivity extends Activity {
         }
     }
 
+    //**** LOGIN / LOGOUT FUNCTIONS ****//
+
     private void login() {
         startActivity(new Intent(this, LoginActivity.class));
     }
@@ -89,31 +97,7 @@ public class AccountActivity extends Activity {
         startActivity(new Intent(this, LoginActivity.class));
     }
 
-    public void getProfileImage() {
-        startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI), 1);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 1 && resultCode == RESULT_OK && null != data) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
-            Cursor cursor = getContentResolver().query(selectedImage,
-                    filePathColumn, null, null, null);
-            cursor.moveToFirst();
-
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
-            cursor.close();
-
-            imgBtn.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-
-        }
-        saveImageToDatabase();
-    }
+    //**** MENU FUNCTIONS ****//
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -138,16 +122,113 @@ public class AccountActivity extends Activity {
         }
     }
 
-    private void setTierLabelText() {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+    //**** SET UI FUNCTIONS ****//
 
+    private void setTierLabelText() {
+        mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("tier").addListenerForSingleValueEvent(
+                new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get points and use the values to update the user
+                        String s = dataSnapshot.getValue(String.class);
+                        Log.d(TAG, "Value is: " + s);
+                        setTierLabelText(s);
+                        // ...
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Getting points failed, log a message
+                        Log.w(TAG, "updateUserPoints:onCancelled", databaseError.toException());
+                        // ...
+                    }
+                });
+    }
+
+    private void setTierLabelText(String s) {
+        this.tierLabel.setText(s);
     }
 
     private void setPointsLabelText() {
+        Log.d(TAG, "VALUE IS: " + mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("points").toString());
+        mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("points").addListenerForSingleValueEvent(
+                new ValueEventListener() {
 
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get points and use the values to update the user
+                        Integer i = dataSnapshot.getValue(Integer.class);
+                        Log.d(TAG, "Value is: " + i);
+                        setPointsLabelText(i);
+                        // ...
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Getting points failed, log a message
+                        Log.w(TAG, "updateUserPoints:onCancelled", databaseError.toException());
+                        // ...
+                    }
+                });
     }
 
-    private void saveImageToDatabase() {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+    private void setPointsLabelText(Integer i) {
+        this.pointsLabel.setText("Exp: " + i);
+    }
+
+    private void setImage() {
+        mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("profile_avatar").addListenerForSingleValueEvent(
+                new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get points and use the values to update the user
+                        String s = dataSnapshot.getValue(String.class);
+                        Log.d(TAG, "Value is: " + s);
+                        setImage(s);
+                        // ...
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Getting points failed, log a message
+                        Log.w(TAG, "updateUserPoints:onCancelled", databaseError.toException());
+                        // ...
+                    }
+                });
+    }
+
+    private void setImage(String str) {
+        int id;
+        switch(str) {
+            case "profile_beard_guy":
+                id = R.drawable.beard_guy;
+                break;
+            case "profile_afro_girl":
+                id = R.drawable.afro_girl;
+                break;
+            case "profile_business_guy":
+                id = R.drawable.business_guy;
+                break;
+            case "profile_brunette_girl":
+                id = R.drawable.brunette_girl;
+                break;
+            case "profile_glasses_guy":
+                id = R.drawable.glasses_guy;
+                break;
+            case "profile_headphones_girl":
+                id = R.drawable.headphones_girl;
+                break;
+            case "profile_moustache_guy":
+                id = R.drawable.moustache_guy;
+                break;
+            case "profile_ponytail_girl":
+                id = R.drawable.ponytail_girl;
+                break;
+            default:
+                id = R.drawable.beard_guy;
+        }
+        this.imgBtn.setImageResource(id);
     }
 }

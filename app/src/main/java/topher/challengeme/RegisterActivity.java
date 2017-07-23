@@ -108,7 +108,7 @@ public class RegisterActivity extends Activity {
 
     private void changeScreen(boolean successful) {
         if(successful) {
-            startActivity(new Intent(this, AccountActivity.class));
+            startActivity(new Intent(this, ProfileImageActivity.class));
         }
     }
 }
