@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-import helper.User;
 
 /**
  * Created by Christopher Hurt on 7/11/17.
@@ -85,9 +83,14 @@ public class MainActivity extends Activity {
         });
     }
 
+    /**
+     * Starts the LoginActivity
+     */
     private void login() {
         startActivity(new Intent(this, LoginActivity.class));
     }
+
+    // **** AUTH LISTENER METHODS **** //
 
     @Override
     public void onStart() {
@@ -102,6 +105,8 @@ public class MainActivity extends Activity {
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
+
+    // **** MENU METHODS **** //
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -131,6 +136,13 @@ public class MainActivity extends Activity {
         }
     }
 
+    // **** DATABASE UPDATE METHODS **** //
+
+    /**
+     * Updates the user points in the database.
+     * Grabs the points in the db and sends them
+     * to a helper method.
+     */
     private void updateUserPoints() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("points").addListenerForSingleValueEvent(
@@ -156,6 +168,11 @@ public class MainActivity extends Activity {
 
     }
 
+    /**
+     * Helper method for updateUserPoints. Increments
+     * the user points by two and updates the tier string.
+     * @param points - previous points of the user
+     */
     private void updateUserPoints(int points) {
         points += 2;
         mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("points").setValue(points);
@@ -165,6 +182,11 @@ public class MainActivity extends Activity {
         mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("daily_challenge").setValue("complete");
     }
 
+    /**
+     * Updates the tier based on the points of the user.
+     * @param points - integer points of the user to determine tier
+     * @return String of the tier level the user is in
+     */
     private String updateUserTier(int points) {
         if (points >= 6 && points <= 15) {
             return "Novice";
@@ -193,6 +215,11 @@ public class MainActivity extends Activity {
         }
     }
 
+    /**
+     * Sets the star to on or off, depending
+     * on if the current challenge has been
+     * completed or not.
+     */
     private void setStar() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("daily_challenge").addListenerForSingleValueEvent(
@@ -220,16 +247,26 @@ public class MainActivity extends Activity {
                 });
     }
 
+    /**
+     * Sets star image to gold (on).
+     */
     public void setStarToOn() {
         imgBtn.setImageResource(R.drawable.star_on);
         imgBtn.setTag(R.drawable.star_on);
     }
 
+    /**
+     * Sets star image to transparent (off).
+     */
     public void setStarToOff() {
         imgBtn.setImageResource(R.drawable.star_off);
         imgBtn.setTag(R.drawable.star_off);
     }
 
+    /**
+     * Sets today's challenge based on the number
+     * of days the user has been registered.
+     */
     public void setTodayChallenge() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("day").addListenerForSingleValueEvent(
@@ -253,6 +290,11 @@ public class MainActivity extends Activity {
                 });
     }
 
+    /**
+     * Helper method for setTodayChallenge. If there are no more
+     * challenges, display the out of challenges text.
+     * @param i - integer number of days the user has been registered.
+     */
     private void setTodayChallenge(int i) {
         String[] challenges = new String[] {
                 "Write down ten things you're thankful for.",

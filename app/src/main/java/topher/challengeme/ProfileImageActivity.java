@@ -3,7 +3,6 @@ package topher.challengeme;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +32,11 @@ public class ProfileImageActivity extends Activity {
         mAuth = FirebaseAuth.getInstance();
     }
 
+    /**
+     * Called when an image is clicked. Sets
+     * the file name to userChoice.
+     * @param view
+     */
     public void getImage(View view) {
         switch(view.getId()) {
             case R.id.profile_beard_guy:
@@ -65,12 +69,18 @@ public class ProfileImageActivity extends Activity {
         setImage();
     }
 
+    /**
+     * Puts the image string choice into the database.
+     */
     private void setImage() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("profile_avatar").setValue(userChoice);
         changeScreen();
     }
 
+    /**
+     * Starts the MainActivity.
+     */
     private void changeScreen() {
         startActivity(new Intent(this, MainActivity.class));
     }

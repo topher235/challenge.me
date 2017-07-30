@@ -2,12 +2,7 @@ package topher.challengeme;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Menu;
@@ -125,6 +120,9 @@ public class AccountActivity extends Activity {
 
     //**** SET UI FUNCTIONS ****//
 
+    /**
+     * Sets the Level label on the activity
+     */
     private void setTierLabelText() {
         mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("tier").addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -147,10 +145,17 @@ public class AccountActivity extends Activity {
                 });
     }
 
+    /**
+     * Helper method for setting the tier label
+     * @param s - String of the tier label
+     */
     private void setTierLabelText(String s) {
         this.tierLabel.setText(s);
     }
 
+    /**
+     * Sets the Exp: points on the activity
+     */
     private void setPointsLabelText() {
         Log.d(TAG, "VALUE IS: " + mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("points").toString());
         mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("points").addListenerForSingleValueEvent(
@@ -174,10 +179,17 @@ public class AccountActivity extends Activity {
                 });
     }
 
+    /**
+     * Helper method for setting the points
+     * @param i - integer points of the user
+     */
     private void setPointsLabelText(Integer i) {
         this.pointsLabel.setText("Exp: " + i);
     }
 
+    /**
+     * Sets the profile avatar of the user
+     */
     private void setImage() {
         mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("profile_avatar").addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -200,6 +212,10 @@ public class AccountActivity extends Activity {
                 });
     }
 
+    /**
+     * Helper method for setting the profile avatar
+     * @param str - string of the name of the avatar file
+     */
     private void setImage(String str) {
         int id;
         switch(str) {

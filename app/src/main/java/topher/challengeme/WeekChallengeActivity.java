@@ -67,6 +67,7 @@ public class WeekChallengeActivity extends Activity {
         setChallenge();
     }
 
+    // **** AUTH LISTENER METHODS **** //
     @Override
     public void onStart() {
         super.onStart();
@@ -81,6 +82,11 @@ public class WeekChallengeActivity extends Activity {
         }
     }
 
+    // **** UPDATE DATABASE METHODS **** //
+
+    /**
+     * Updates the user points in the database.
+     */
     private void updateUserPoints() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("points").addListenerForSingleValueEvent(
@@ -104,7 +110,12 @@ public class WeekChallengeActivity extends Activity {
                 });
     }
 
-
+    /**
+     * Helper method for updateUserPoints. Sets
+     * the new point value and updates the tier
+     * label.
+     * @param points - integer number of previous points of the user.
+     */
     private void updateUserPoints(int points) {
         points += 5;
         mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("points").setValue(points);
@@ -114,6 +125,12 @@ public class WeekChallengeActivity extends Activity {
         mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("weekly_challenge").setValue("complete");
     }
 
+    /**
+     * Returns the correct tier string based on the
+     * number of points the user has.
+     * @param points - integer number of points the user has.
+     * @return String tier label
+     */
     private String updateUserTier(int points) {
         if (points >= 6 && points <= 15) {
             return "Novice";
@@ -142,6 +159,10 @@ public class WeekChallengeActivity extends Activity {
         }
     }
 
+    /**
+     * Sets the star based on if the current
+     * challenge has been completed or not.
+     */
     private void setStar() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("weekly_challenge").addListenerForSingleValueEvent(
@@ -169,16 +190,26 @@ public class WeekChallengeActivity extends Activity {
                 });
     }
 
+    /**
+     * Sets the star to gold (on).
+     */
     public void setStarToOn() {
         imgBtn.setImageResource(R.drawable.star_on);
         imgBtn.setTag(R.drawable.star_on);
     }
 
+    /**
+     * Sets the star to transparent (off).
+     */
     public void setStarToOff() {
         imgBtn.setImageResource(R.drawable.star_off);
         imgBtn.setTag(R.drawable.star_off);
     }
 
+    /**
+     * Sets the challenge based on the number of days
+     * the user has been registered.
+     */
     public void setChallenge() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("day").addListenerForSingleValueEvent(
@@ -198,6 +229,10 @@ public class WeekChallengeActivity extends Activity {
         );
     }
 
+    /**
+     * Helper method for setChallenge.
+     * @param i - integer number for determining the challenge.
+     */
     private void setChallenge(int i) {
         challenges = new String[]{
                 "Set an alarm and don't hit snooze.",

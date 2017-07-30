@@ -13,7 +13,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Created by Christopher Hurt on 7/18/2017.
@@ -40,11 +39,21 @@ public class LoginActivity extends Activity {
         mAuth = FirebaseAuth.getInstance();
     }
 
+    /**
+     * Starts the RegisterActivity.
+     * @param view
+     */
     public void goToRegister(View view) {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Gets the input email and password
+     * and logins the user in the firebase
+     * system.
+     * @param view
+     */
     public void loginUser(View view) {
         //Button is clicked and user is logged in.
         String email = inputEmail.getText().toString().trim();
@@ -67,6 +76,12 @@ public class LoginActivity extends Activity {
         }
     }
 
+    /**
+     * Helper method for loginUser. If there is
+     * a successful login, the MainActivity will
+     * be started.
+     * @param successful
+     */
     private void changeScreen(boolean successful) {
         if(successful) {
             startActivity(new Intent(this, MainActivity.class));

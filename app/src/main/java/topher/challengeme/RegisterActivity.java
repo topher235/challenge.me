@@ -56,6 +56,7 @@ public class RegisterActivity extends Activity {
         };
     }
 
+    // **** AUTH LISTENER METHODS **** //
     @Override
     public void onStart() {
         super.onStart();
@@ -70,11 +71,22 @@ public class RegisterActivity extends Activity {
         }
     }
 
+    // **** REGISTER USER METHODS **** //
+
+    /**
+     * Starts the LoginActivity.
+     * @param view
+     */
     public void goToLogin(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Registers the user in the firebase system
+     * based on the email and password inputted.
+     * @param view
+     */
     public void registerUser(View view) {
         //Button is clicked and user will be registered
         String email = inputEmail.getText().toString().trim();
@@ -99,6 +111,10 @@ public class RegisterActivity extends Activity {
 
     }
 
+    /**
+     * Adds the user as a User Object to the database.
+     * @param successful - boolean says if registration was successful.
+     */
     private void addToDatabase(boolean successful) {
         if(successful) {
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -106,6 +122,10 @@ public class RegisterActivity extends Activity {
         }
     }
 
+    /**
+     * If registration was successful, then start ProfileImageActivity.
+     * @param successful - boolean says if registration was successful
+     */
     private void changeScreen(boolean successful) {
         if(successful) {
             startActivity(new Intent(this, ProfileImageActivity.class));

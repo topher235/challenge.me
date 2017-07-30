@@ -24,10 +24,14 @@ public class AboutActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
+        //Set the message on the About activity
         message = (TextView) findViewById(R.id.aboutMessage);
         setMessage();
     }
 
+    /**
+     * Sets the text of the About activity
+     */
     private void setMessage() {
         message.setText("Challenge.Me is an app made for "
         + "the people who love to accept "
