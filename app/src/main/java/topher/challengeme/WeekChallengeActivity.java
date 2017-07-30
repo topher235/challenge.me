@@ -1,13 +1,12 @@
 package topher.challengeme;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,6 +22,8 @@ public class WeekChallengeActivity extends Activity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
     private ImageButton imgBtn;
+    private String[] challenges;
+    private TextView challengeText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,10 @@ public class WeekChallengeActivity extends Activity {
                 }
             }
         });
+
+        //Set the challenge
+        challengeText = (TextView) findViewById(R.id.weeklyChallengeChallengeText);
+        setChallenge();
     }
 
     @Override
@@ -110,27 +115,27 @@ public class WeekChallengeActivity extends Activity {
     }
 
     private String updateUserTier(int points) {
-        if (points >= 19 && points <= 38) {
+        if (points >= 6 && points <= 15) {
             return "Novice";
-        } else if(points >= 39 && points <= 76) {
+        } else if(points >= 16 && points <= 21) {
             return "Bold";
-        } else if(points >= 77 && points <= 133) {
+        } else if(points >= 22 && points <= 30) {
             return "Opportunistic";
-        } else if(points >= 134 && points <= 209) {
+        } else if(points >= 31 && points <= 42) {
             return "Ambitious";
-        } else if(points >= 210 && points <= 304) {
+        } else if(points >= 43 && points <= 57) {
             return "Go-getter";
-        } else if(points >= 305 && points <= 418) {
+        } else if(points >= 58 && points <= 75) {
             return "Achiever";
-        } else if(points >= 419 && points <= 551) {
+        } else if(points >= 76 && points <= 96) {
             return "Adventurer";
-        } else if(points >= 552 && points <= 703) {
+        } else if(points >= 97 && points <= 120) {
             return "High-flyer";
-        } else if(points >= 704 && points <= 874) {
+        } else if(points >= 121 && points <= 150) {
             return "Over-Achiever";
-        } else if(points >= 875 && points <= 1064) {
+        } else if(points >= 151 && points <= 183) {
             return "Master";
-        } else if(points >= 1065) {
+        } else if(points >= 184) {
             return "Champion";
         } else {
             return "Beginner";
@@ -172,5 +177,48 @@ public class WeekChallengeActivity extends Activity {
     public void setStarToOff() {
         imgBtn.setImageResource(R.drawable.star_off);
         imgBtn.setTag(R.drawable.star_off);
+    }
+
+    public void setChallenge() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Users").child(mAuth.getCurrentUser().getUid()).child("day").addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int i = dataSnapshot.getValue(Integer.class);
+                        setChallenge(i/7);
+                        Log.v(TAG, "Value is: " + i);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.v(TAG, "setChallenge:onCanceled", databaseError.toException());
+                    }
+                }
+        );
+    }
+
+    private void setChallenge(int i) {
+        challenges = new String[]{
+                "Set an alarm and don't hit snooze.",
+                "Make plans with a friend and go through with it.",
+                "Try a new hobby.",
+                "Begin to learn something new.",
+                "Set a goal and achieve it.",
+                "Create a budget and stick to it.",
+                "Workout 3 days this week.",
+                "Conduct a review of the past week. What did you accomplish? What went wrong? What went right?",
+                "Keep a food log.",
+                "Walk 10,000 steps every day this week.",
+                "Try an activity that gets the adrenaline pumping.",
+                "Volunteer somewhere this week.",
+                "Remind yourself of something you want, and make progress for getting it.",
+                "Avoid elevators and escalators; take the stairs instead."
+        };
+        try {
+            this.challengeText.setText(challenges[i]);
+        } catch(ArrayIndexOutOfBoundsException err) {
+            this.challengeText.setText("There are no more challenges to be completed at this time.");
+        }
     }
 }

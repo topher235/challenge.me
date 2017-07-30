@@ -116,7 +116,8 @@ public class AccountActivity extends Activity {
                 startActivity(new Intent(this, WeekChallengeActivity.class));
                 return true;
             case R.id.menu_about:
-                //Go to about activity
+                startActivity(new Intent(this, AboutActivity.class));
+                return true;
             default:
                 return false;
         }

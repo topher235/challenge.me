@@ -21,9 +21,11 @@
         tools:layout_editor_absoluteY="44dp" />
 
     <TextView
-        android:id="@+id/dailyChallengeText"
+        android:id="@+id/weeklyChallengeCompletedText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/weeklyChallengeStarButton"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="38dp"
         android:layout_marginRight="75dp"
         android:text="@string/completed"
@@ -31,9 +33,7 @@
         android:textIsSelectable="false"
         android:textSize="36sp"
         tools:layout_editor_absoluteX="105dp"
-        tools:layout_editor_absoluteY="462dp"
-        android:layout_above="@+id/weeklyChallengeStarButton"
-        android:layout_centerHorizontal="true" />
+        tools:layout_editor_absoluteY="462dp" />
 
     <ImageButton
         android:id="@+id/weeklyChallengeStarButton"
@@ -48,4 +48,17 @@
         tools:ignore="HardcodedText"
         tools:layout_editor_absoluteX="172dp"
         tools:layout_editor_absoluteY="497dp" />
+
+    <TextView
+        android:id="@+id/weeklyChallengeChallengeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/weeklyChallengeTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="88dp"
+        android:maxWidth="300dp"
+        android:text="Go to a movie with a friend and do "
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="24sp"
+        android:textStyle="italic" />
 </RelativeLayout>

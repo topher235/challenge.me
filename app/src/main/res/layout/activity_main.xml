@@ -14,7 +14,6 @@
         android:id="@+id/dailyChallengeChText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/dailyChallengeCompleted"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="68dp"
         android:text="@string/today_challenge"
@@ -24,7 +23,7 @@
         tools:layout_editor_absoluteY="663dp" />
 
     <TextView
-        android:id="@+id/dailyChallengeText"
+        android:id="@+id/dailyChallengeComplete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/dailyChallengeStarButton"
@@ -39,11 +38,17 @@
         tools:layout_editor_absoluteY="462dp" />
 
     <TextView
-        android:id="@+id/dailyChallengeCompleted"
+        android:id="@+id/dailyChallenge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/challenge"
+        android:layout_below="@+id/dailyChallengeChText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="103dp"
+        android:maxWidth="300dp"
+        android:text="Sample text"
+        android:textColor="@android:color/holo_green_dark"
         android:textSize="24sp"
+        android:textStyle="italic"
         tools:layout_editor_absoluteX="156dp"
         tools:layout_editor_absoluteY="287dp" />
 
