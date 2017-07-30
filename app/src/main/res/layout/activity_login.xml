@@ -10,12 +10,12 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/loginPasswordInput"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="45dp"
+        android:layout_marginBottom="35dp"
         android:background="@android:color/background_light"
         android:ems="10"
         android:inputType="textEmailAddress"
         android:maxLines="1"
-        android:text="@string/string_email"
+        android:hint="Email"
         android:textColor="@android:color/darker_gray" />
 
     <EditText
@@ -25,7 +25,7 @@
         android:background="@android:color/background_light"
         android:ems="10"
         android:inputType="textPassword"
-        android:text="@string/string_password"
+        android:hint="Password"
         android:textColor="@android:color/darker_gray"
         android:layout_above="@+id/loginButton"
         android:layout_alignStart="@+id/loginEmailInput"
